@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "DumpViewer": {
+      "commandName": "Project",
+      "nativeDebugging": true
+    }
+  }
+}

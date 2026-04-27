@@ -1,0 +1,64 @@
+﻿<UserControl x:Class="DumpViewer.View.FileInfoViews.FileInfoViewCard"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:fileinfoviews="clr-namespace:DumpViewer.View.FileInfoViews" 
+             d:DataContext="{d:DesignInstance Type=fileinfoviews:FileInfocardViewModel}"
+             mc:Ignorable="d"
+             d:DesignHeight="450"
+             d:DesignWidth="800">
+
+    <UserControl.Resources>
+        <Style TargetType="TextBox">
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="BorderThickness" Value="0" />
+            <Setter Property="BorderBrush" Value="Transparent" />
+        </Style>
+
+        <Style TargetType="Border">
+            <Setter Property="Background" Value="#FFFFFFFF" />
+            <Setter Property="BorderBrush" Value="#FFE5E7EB" />
+            <Setter Property="BorderThickness" Value="1" />
+            <Setter Property="CornerRadius" Value="10" />
+        </Style>
+    </UserControl.Resources>
+
+    <Grid Margin="20,18,20,20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="12" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <TextBlock Grid.Row="0"
+                   Text="File Info"
+                   FontSize="32"
+                   FontWeight="Bold"
+                   Foreground="DarkGray"/>
+
+        <Border Grid.Row="2"
+                Padding="16">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="12" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+
+                <StackPanel Grid.Row="0" Grid.Column="0" Margin="0,0,8,0">
+                    <TextBlock Text="dump Header" Margin="0,0,0,6" FontWeight="SemiBold" Foreground="#FF374151" />
+                    <TextBox IsReadOnly="True" Text="{Binding DumpHeader}" />
+                </StackPanel>
+
+                <StackPanel Grid.Row="0" Grid.Column="2" Margin="8,0,0,0">
+                    <TextBlock Text="Exception Header" Margin="0,0,0,6" FontWeight="SemiBold" Foreground="#FF374151" />
+                    <TextBox IsReadOnly="True" Text="{Binding Exception}" />
+                </StackPanel>
+            </Grid>
+        </Border>
+    </Grid>
+</UserControl>

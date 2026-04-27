@@ -1,0 +1,12 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <!-- PNG 아이콘 리소스 -->
+    <BitmapImage x:Key="IcoOpen" UriSource="pack://application:,,,/Resource/fileopen.png" DecodePixelWidth="16" DecodePixelHeight="16" />
+    <BitmapImage x:Key="IcoSettings" UriSource="pack://application:,,,/Resource/settings.png" DecodePixelWidth="16" DecodePixelHeight="16" />
+    <BitmapImage x:Key="IcoInfo" UriSource="pack://application:,,,/Resource/listBlack.png" DecodePixelWidth="16" DecodePixelHeight="16" />
+    <BitmapImage x:Key="IcoSystem" UriSource="pack://application:,,,/Resource/warnning_black.png" DecodePixelWidth="16" DecodePixelHeight="16" />
+    <BitmapImage x:Key="IcoModule" UriSource="pack://application:,,,/Resource/module.png" DecodePixelWidth="16" DecodePixelHeight="16" />
+    <BitmapImage x:Key="IcoThread" UriSource="pack://application:,,,/Resource/cpu.png" DecodePixelWidth="16" DecodePixelHeight="16" />
+
+</ResourceDictionary>

@@ -1,0 +1,191 @@
+﻿<Window x:Class="DumpViewer.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:DumpViewer" 
+        xmlns:fileView="clr-namespace:DumpViewer.View.FileInfoViews" 
+        xmlns:moduleview="clr-namespace:DumpViewer.View.ModuleViews"
+        xmlns:exceptionview="clr-namespace:DumpViewer.View.ExceptionViews"
+        xmlns:threadview="clr-namespace:DumpViewer.View.ThreadViews"
+        d:DataContext="{d:DesignInstance Type=local:MainViewModel}"
+        mc:Ignorable="d"
+        Title="Window Dump Viewer"
+        AllowsTransparency="False"
+        Height="780"
+        Width="1200"
+        MinHeight="680"
+        MinWidth="1024"
+        Background="#FFF7F8FA"
+        FontFamily="Noto Sans KR"
+        FontWeight="Medium"
+        UseLayoutRounding="True"
+        SnapsToDevicePixels="True">
+
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Resource/icon_collection.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+
+            <DataTemplate DataType="{x:Type fileView:FileInfocardViewModel}">
+                <fileView:FileInfoViewCard/>
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type moduleview:ModuleListUpViewModel}">
+                <moduleview:ModuleListUpCard/>
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type exceptionview:ExceptionViewModel}">
+                <exceptionview:ExceptionViewCard/>
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type threadview:ThreadListViewModel}">
+                <threadview:ThreadListView/>
+            </DataTemplate>
+
+            <SolidColorBrush x:Key="WindowBackgroundBrush" Color="#FFF7F8FA" />
+            <SolidColorBrush x:Key="PanelBackgroundBrush" Color="#FFF3F4F6" />
+            <SolidColorBrush x:Key="BorderBrushLight" Color="#FFE5E7EB" />
+            <SolidColorBrush x:Key="PrimaryTextBrush" Color="#FF111827" />
+            <SolidColorBrush x:Key="SecondaryTextBrush" Color="#FF6B7280" />
+            <SolidColorBrush x:Key="AccentBrush" Color="#FFDBEAFE" />
+            <SolidColorBrush x:Key="AccentTextBrush" Color="#FF1D4ED8" />
+
+            <Style x:Key="NavIconStyle" TargetType="Image">
+                <Setter Property="Width" Value="16" />
+                <Setter Property="Height" Value="16" />
+                <Setter Property="VerticalAlignment" Value="Center" />
+                <Setter Property="Margin" Value="0,0,0,0" />
+                <Setter Property="SnapsToDevicePixels" Value="True" />
+                <Setter Property="UseLayoutRounding" Value="True" />
+                <Setter Property="Stretch" Value="Fill" />
+            </Style>
+
+            <Style x:Key="TransparentButtonStyle" TargetType="Button">
+                <Setter Property="Background" Value="Transparent" />
+                <Setter Property="BorderBrush" Value="Transparent" />
+                <Setter Property="BorderThickness" Value="0" />
+                <Setter Property="Padding" Value="8,2" />
+                <Setter Property="Margin" Value="2,0" />
+            </Style>
+
+            <Style TargetType="ListBoxItem">
+                <Setter Property="Padding" Value="12,6" />
+                <Setter Property="Margin" Value="0" />
+                <Setter Property="Cursor" Value="Hand" />
+                <Setter Property="Background" Value="Transparent" />
+                <Setter Property="BorderBrush" Value="Transparent" />
+                <Setter Property="BorderThickness" Value="0" />
+                <Setter Property="HorizontalContentAlignment" Value="Left" />
+                <Setter Property="VerticalContentAlignment" Value="Center" />
+                <Style.Triggers>
+                    <Trigger Property="IsSelected" Value="True">
+                        <Setter Property="Background" Value="{StaticResource AccentBrush}" />
+                        <Setter Property="Foreground" Value="{StaticResource AccentTextBrush}" />
+                    </Trigger>
+                    <Trigger Property="IsMouseOver" Value="True">
+                        <Setter Property="Background" Value="{StaticResource AccentBrush}" />
+                        <Setter Property="Foreground" Value="{StaticResource AccentTextBrush}" />
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
+
+        </ResourceDictionary>
+    </Window.Resources>
+
+    <DockPanel LastChildFill="True" Background="{StaticResource WindowBackgroundBrush}">
+        <StatusBar DockPanel.Dock="Bottom"
+                   Background="#FFF3F4F6"
+                   BorderBrush="{StaticResource BorderBrushLight}"
+                   BorderThickness="0,1,1,0">
+            <StatusBarItem Content="{Binding FileStatus}" />
+            <Separator />
+            <StatusBarItem Content="{Binding FileStatusFormat}"/>
+        </StatusBar>
+
+        <Border DockPanel.Dock="Top"
+                Background="#FFF9FAFB"
+                BorderBrush="{StaticResource BorderBrushLight}"
+                BorderThickness="0,1,1,1"
+                Padding="8,4">
+            <StackPanel Orientation="Horizontal">
+                <Button Content="파일"
+                        Padding="8,2"
+                        Margin="2,0"
+                        Command="{Binding OpenFileCommand}"
+                        Style="{StaticResource TransparentButtonStyle}"/>
+
+                <Button Content="설정"
+                        Padding="8,2"
+                        Margin="2,0"
+                        Style="{StaticResource TransparentButtonStyle}"/>
+                
+                <Button Content="정보"
+                        Padding="8,2"
+                        Margin="2,0"
+                        Style="{StaticResource TransparentButtonStyle}"/>
+            </StackPanel>
+        </Border>
+
+        <Grid Margin="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="250" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <Border Grid.Column="0"
+                    Background="{StaticResource PanelBackgroundBrush}"
+                    BorderBrush="{StaticResource BorderBrushLight}"
+                    BorderThickness="0,0,1,0"
+                    Padding="0">
+                <StackPanel>
+
+                    <Border Background="#FFFFFFFF"
+                            BorderBrush="{StaticResource BorderBrushLight}"
+                            BorderThickness="0,0,1,0"
+                            CornerRadius="0"
+                            Padding="12"
+                            Margin="0,0,0,0">
+                        <StackPanel>
+                            <TextBlock Text="덤프 파일"
+                                      FontSize="13"
+                                      FontWeight="SemiBold"
+                                      Foreground="{StaticResource PrimaryTextBrush}"
+                                      TextTrimming="CharacterEllipsis" />
+
+                            <TextBlock Text="{Binding CurrentFileStatus}"
+                                       FontSize="11"
+                                       Margin="0,4,0,0"
+                                       Foreground="{StaticResource SecondaryTextBrush}" />
+                        </StackPanel>
+                    </Border>
+
+                    <ListBox ItemsSource="{Binding DumpSections}"
+                             SelectedItem="{Binding SelectedDumpSection, Mode=TwoWay}"
+                             Margin="0"
+                             BorderThickness="0"
+                             Background="Transparent"
+                             Foreground="{StaticResource PrimaryTextBrush}">
+                        <ListBox.Style>
+                            <Style TargetType="ListBox">
+                                <Setter Property="Visibility" Value="Collapsed" />
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding HasLoadedFile}" Value="True">
+                                        <Setter Property="Visibility" Value="Visible" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </ListBox.Style>
+                    </ListBox>
+                </StackPanel>
+            </Border>
+
+            <ScrollViewer Grid.Column="1" VerticalScrollBarVisibility="Auto">
+                <Grid Margin="20,18,20,20">
+                    <ContentControl Content="{Binding CurrentSectionView}" />
+                </Grid>
+            </ScrollViewer>
+        </Grid>
+    </DockPanel>
+</Window>

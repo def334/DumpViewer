@@ -1,0 +1,106 @@
+﻿<UserControl x:Class="DumpViewer.View.ModuleViews.ModuleListUpCard"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:view="clr-namespace:DumpViewer.View.ModuleViews" 
+             d:DataContext="{d:DesignInstance Type=view:ModuleListUpViewModel}"
+             mc:Ignorable="d"
+             d:DesignHeight="450"
+             d:DesignWidth="800">
+
+    <UserControl.Resources>
+        <Style TargetType="TextBox">
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="BorderThickness" Value="0" />
+            <Setter Property="BorderBrush" Value="Transparent" />
+        </Style>
+
+        <Style TargetType="Border">
+            <Setter Property="Background" Value="#FFFFFFFF" />
+            <Setter Property="BorderBrush" Value="#FFE5E7EB" />
+            <Setter Property="BorderThickness" Value="1" />
+            <Setter Property="CornerRadius" Value="10" />
+        </Style>
+
+        <Style TargetType="ListBoxItem">
+            <Setter Property="Margin" Value="2"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ListBoxItem">
+                        <Border x:Name="Border" 
+                                CornerRadius="8" 
+                                BorderBrush="LightGray" 
+                                Background="WhiteSmoke"
+                                BorderThickness="1">
+                            <ContentPresenter HorizontalAlignment="Left" VerticalAlignment="Top" Margin="8"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsSelected" Value="True">
+                                <Setter TargetName="Border" Property="BorderBrush" Value="Blue"/>
+                                <Setter TargetName="Border" Property="CornerRadius" Value="8"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </UserControl.Resources>
+
+    <Grid Margin="20,18,20,20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="12" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <TextBlock Grid.Row="0"
+                   Text="Module List"
+                   FontSize="32"
+                   FontWeight="Bold"
+                   Foreground="DarkGray"/>
+
+        <Border Grid.Row="2"
+                Padding="16">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                </Grid.ColumnDefinitions>
+
+                <ListBox Grid.Row="0"
+                         Grid.Column="0"
+                         ItemsSource="{Binding Modules}"
+                         BorderThickness="0"
+                         Background="Transparent"
+                         VirtualizingPanel.IsVirtualizing="True"
+                         VirtualizingPanel.VirtualizationMode="Recycling">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate DataType="{x:Type view:ModuleItem}">
+                            <StackPanel Orientation="Vertical" Margin="8">
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Text="{Binding ModuleName}"
+                                               FontWeight="SemiBold"
+                                               Foreground="Black" />
+                                    <TextBlock Text="{Binding ModuleSize}"
+                                               Margin="8,1,0,0"
+                                               Foreground="#FF6B7280"
+                                               FontSize="10"
+                                               VerticalAlignment="Center" />
+                                </StackPanel>
+
+                                <TextBlock Text="Module Base Address" Margin="0,10,0,0" Foreground="#FF6B7280"/>
+                                <TextBlock Text="{Binding ModuleBaseAddress}" Foreground="#FF6B7280" FontSize="10"/>
+                                <TextBlock Text="Module Version" Margin="0,10,0,0" Foreground="#FF6B7280" />
+                                <TextBlock Text="{Binding ModuleVersion}" Foreground="#FF6B7280" FontSize="10"/>
+                                <TextBlock Text="Module Path" Margin="0,10,0,0" Foreground="#FF6B7280" />
+                                <TextBlock Text="{Binding ModulePath}" Foreground="#FF6B7280" FontSize="10" />
+                            </StackPanel>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+            </Grid>
+        </Border>
+    </Grid>
+</UserControl>
